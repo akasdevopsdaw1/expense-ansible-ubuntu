@@ -73,19 +73,10 @@
 
     - name: Grant all privileges to root user from any host
       ansible.builtin.shell: |
-        mysql -u root -pExpenseApp@1 -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';"
+        mysql -u root -pExpenseApp@1 -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;"
       args:
         executable: /bin/bash  
-
-    - name: Grant all privileges on transactions database to root
-      community.mysql.mysql_privs:
-        user: root
-        host: '%'
-        db: '*'
-        priv: "ALL"
-        state: present
-        login_user: root
-        login_password: 'ExpenseApp@1'     
+    
 
     - name: Flush MySQL privileges
       ansible.builtin.shell: |
