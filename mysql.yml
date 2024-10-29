@@ -1,12 +1,21 @@
 - name: MySQL Setup
   hosts: mysql
   become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: Install MySQL Server
       ansible.builtin.apt:
         name: mysql-server
         state: latest
         update_cache: yes
+
+    - name: Install Python MySQL Client
+      ansible.builtin.pip:
+        name:
+          - PyMySQL
+          - cryptography
+        executable: pip3    
 
     - name: Start MySQL Service
       ansible.builtin.systemd:
