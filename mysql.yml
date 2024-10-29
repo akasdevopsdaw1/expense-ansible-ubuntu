@@ -40,6 +40,13 @@
         name: mysql
         state: restarted
 
+    - name: Set MySQL root password
+      community.mysql.mysql_user:
+        name: root
+        host: localhost
+        password: 'ExpenseApp@1'
+        state: present    
+
     - name: Flush MySQL privileges
       ansible.builtin.shell: |
         mysql -e "FLUSH PRIVILEGES;"
