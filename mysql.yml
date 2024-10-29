@@ -52,6 +52,12 @@
       args:
         executable: /bin/bash
 
+    - name: Grant all privileges to root user from any host
+      ansible.builtin.shell: |
+        mysql -u root -pExpenseApp@1 -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';"
+      args:
+        executable: /bin/bash   
+
     - name: Create expense user
       community.mysql.mysql_user:
         name: 'expense'
@@ -60,3 +66,9 @@
         state: present
         login_user: root
         login_password: 'ExpenseApp@1'
+
+    - name: Grant all privileges on transactions database to expense user
+      ansible.builtin.shell: |
+        mysql -u root -pExpenseApp@1 -e "GRANT ALL PRIVILEGES ON transactions.* TO 'expense'@'%';"
+      args:
+        executable: /bin/bash    
