@@ -48,7 +48,7 @@
 
     - name: Alter MySQL root user password
       ansible.builtin.shell: |
-        mysql -e "ALTER USER 'root'@'%' IDENTIFIED WITH caching_sha2_password BY 'ExpenseApp@1';;"
+        mysql -e "ALTER USER 'root'@'%' IDENTIFIED WITH caching_sha2_password BY 'ExpenseApp@1';"
       args:
         executable: /bin/bash        
 
