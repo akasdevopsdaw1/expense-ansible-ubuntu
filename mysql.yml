@@ -50,7 +50,7 @@
 
     - name: Set MySQL root password if not set
       ansible.builtin.shell: |
-        mysql -u root -e "ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'ExpenseApp@1';"
+        mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'ExpenseApp@1';"
       args:
         executable: /bin/bash
       # when: mysql_root_check.rc != 0  # Only run if the previous check failed   
@@ -60,6 +60,16 @@
         mysql -u root -pExpenseApp@1 -e "FLUSH PRIVILEGES;"
       args:
         executable: /bin/bash
+
+    - name: Create expense user
+      community.mysql.mysql_user:
+        name: 'root'
+        host: '%'
+        password: 'ExpenseApp@1'
+        state: present
+        login_user: root
+        login_password: 'ExpenseApp@1'
+        # column_case_sensitive: true    
 
     - name: Grant all privileges to root user from any host
       ansible.builtin.shell: |
