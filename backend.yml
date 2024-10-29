@@ -9,6 +9,7 @@
         name:
           - curl
           - unzip
+          - python3-pip
         state: present
         update_cache: yes
 
@@ -20,7 +21,7 @@
     - name: Install Node.js 20
       ansible.builtin.apt:
         name: nodejs
-        state: latest
+        state: latest  
 
     - name: Adding Application User
       ansible.builtin.user:
