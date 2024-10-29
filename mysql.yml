@@ -40,12 +40,11 @@
         name: mysql
         state: restarted
 
-    - name: Set MySQL root password
-      community.mysql.mysql_user:
-        name: root
-        host: localhost
-        password: 'ExpenseApp@1'
-        state: present    
+    - name: Set MySQL root password if not set
+      ansible.builtin.shell: |
+        mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'ExpenseApp@1';"
+      args:
+        executable: /bin/bash    
 
     # - name: Flush MySQL privileges
     #   ansible.builtin.shell: |
