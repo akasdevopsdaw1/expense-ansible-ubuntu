@@ -40,12 +40,17 @@
         name: mysql
         state: restarted
 
-    - name: Set MySQL root password if not set
-      community.mysql.mysql_user:
-        name: root
-        host: 172.31.27.148
-        password: 'ExpenseApp@1'
-        state: present    
+    - name: Setup MySQL Password
+      ansible.builtin.shell: mysql_secure_installation --set-root-pass ExpenseApp@1
+      args:
+        executable: /bin/bash    
+
+    # - name: Set MySQL root password if not set
+    #   community.mysql.mysql_user:
+    #     name: root
+    #     host: 172.31.27.148
+    #     password: 'ExpenseApp@1'
+    #     state: present    
 
     # - name: Flush MySQL privileges
     #   community.mysql.mysql_db:
