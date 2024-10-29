@@ -43,26 +43,26 @@
     - name: Set MySQL root password if not set
       community.mysql.mysql_user:
         name: root
-        host: localhost
+        host: 172.31.27.148
         password: 'ExpenseApp@1'
         state: present    
 
-    - name: Flush MySQL privileges
-      community.mysql.mysql_db:
-        login_user: root
-        login_password: ExpenseApp@1
-        login_host: localhost
-        state: present
-        name: ''
-        sql: 'FLUSH PRIVILEGES;'
+    # - name: Flush MySQL privileges
+    #   community.mysql.mysql_db:
+    #     login_user: root
+    #     login_password: ExpenseApp@1
+    #     login_host: 172.31.27.148
+    #     state: present
+    #     name: ''
+    #     sql: 'FLUSH PRIVILEGES;'
 
-    - name: Alter MySQL root user password
-      community.mysql.mysql_user:
-        name: 'root'
-        host: '%'
-        password: 'ExpenseApp@1'
-        plugin: caching_sha2_password
-        state: present
+    # - name: Alter MySQL root user password
+    #   community.mysql.mysql_user:
+    #     name: 'root'
+    #     host: '%'
+    #     password: 'ExpenseApp@1'
+    #     plugin: caching_sha2_password
+    #     state: present
 
     - name: Create expense user
       community.mysql.mysql_user:
