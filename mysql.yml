@@ -40,20 +40,20 @@
         name: mysql
         state: restarted
 
-    - name: Check if MySQL root password is set
-      ansible.builtin.shell: |
-        mysql -u root -pExpenseApp@1 -e "SELECT 1;"
-      args:
-        executable: /bin/bash
-      register: mysql_root_check
-      ignore_errors: yes    
+    # - name: Check if MySQL root password is set
+    #   ansible.builtin.shell: |
+    #     mysql -u root -pExpenseApp@1 -e "SELECT 1;"
+    #   args:
+    #     executable: /bin/bash
+    #   register: mysql_root_check
+    #   ignore_errors: yes    
 
     - name: Set MySQL root password if not set
       ansible.builtin.shell: |
         mysql -u root -e "ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'ExpenseApp@1';"
       args:
         executable: /bin/bash
-      when: mysql_root_check.rc != 0  # Only run if the previous check failed   
+      # when: mysql_root_check.rc != 0  # Only run if the previous check failed   
 
     - name: Flush MySQL privileges
       ansible.builtin.shell: |
