@@ -28,13 +28,6 @@
         state: started    
         enabled: yes   
 
-    - name: Set MySQL root password if not set
-      community.mysql.mysql_user:
-        name: root
-        host: localhost
-        password: 'ExpenseApp@1'
-        state: present
-
     - name: Configure MySQL to listen on all IP addresses
       ansible.builtin.lineinfile:
         path: /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -46,6 +39,13 @@
       ansible.builtin.systemd:
         name: mysql
         state: restarted
+
+    - name: Set MySQL root password if not set
+      community.mysql.mysql_user:
+        name: root
+        host: localhost
+        password: 'ExpenseApp@1'
+        state: present    
 
     - name: Flush MySQL privileges
       community.mysql.mysql_db:
